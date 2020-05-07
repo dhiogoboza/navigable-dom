@@ -1,0 +1,32 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+skip_files:
+- .git/
+- .gitingore
+- README.md
+
+libraries:
+  - name: lxml
+    version: "3.7.3"
+
+handlers:
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /index(.*)
+  static_files: dist/index.html
+  upload: index.html
+
+- url: /css/(.*)
+  static_files: css/\1
+  upload: css/(.*)
+
+- url: /js/(.*)
+  static_files: js/\1
+  upload: js/(.*)
+
+- url: /navigate/*
+  script: api.navigate.app
+
