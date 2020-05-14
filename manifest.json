@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "icons": {
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "name": "Navigable DOM",
+  "description": "Turn all link elements navigable with arrow keys",
+  "version": "1.0",
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["js/navigable-dom.js"]
+  }],
+  "browser_action": {
+    "default_icon": "img/icon.png",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "http://*/*", "https://*/*"
+  ]
+}

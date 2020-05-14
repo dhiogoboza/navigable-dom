@@ -1,7 +1,6 @@
 let allFocusableElements = [];
 let currentFocus = undefined;
-let container;
-let content;
+let navigableDOMInited = false;
 
 function selectItem(newFocus, e) {
     if (currentFocus != undefined) {
@@ -100,13 +99,11 @@ function findFocusableElements() {
             allFocusableElements[allFocusableElements[i].focusDown].focusUp = i;
         }
 
+        // add 'enablend=true' in links
         let href = allFocusableElements[i].el.getAttribute("href");
-        console.log("antes: " + href);
-        if (!href.startsWith("http:") && !href.startsWith("https:")) {
-            // relative path
-            let url = getParam("url");
-            let sep = href[0] === "/" || url[url.length - 1] === "/" ? "" : "/";
-            href = window.location.protocol  + "//" + window.location.host + "/navigate?url=" + url + sep + href;
+        if (href != null) {
+            let sep = href.includes("?") ? "&" : "?";
+            href = href + sep + "enablend=true";
             allFocusableElements[i].el.href = href;
         }
     }
@@ -119,19 +116,39 @@ function getParam(parameterName) {
         .substr(1)
         .split("&")
         .forEach(function (item) {
-          tmp = item.split("=");
-          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    container = document.getElementById("container");
-    content = document.getElementById("navigatable-dom-content");
-    document.onkeydown = onKeyPressed;
-    findFocusableElements();
-    if (allFocusableElements.length > 0) {
-        selectItem(0);
+function initNavigableDOM() {
+    if (!navigableDOMInited) {
+        navigableDOMInited = true;
+        document.onkeydown = onKeyPressed;
+        findFocusableElements();
+        if (allFocusableElements.length > 0) {
+            selectItem(0);
+
+            var css = '.navigable-dom-selected {border: 2px solid green;padding: 2px;}',
+            head = document.head || document.getElementsByTagName('body')[0],
+            style = document.createElement('style');
+            head.appendChild(style);
+            style.type = 'text/css';
+            if (style.styleSheet){
+                // This is required for IE8 and below.
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+        }
     }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    initNavigableDOM();
 });
 
+if (getParam("enablend") != undefined) {
+    initNavigableDOM();
+}

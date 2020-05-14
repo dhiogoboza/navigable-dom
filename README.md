@@ -1,5 +1,5 @@
 # Navigable DOM
-Utility to turn all focusable elements navigable with arrow keys.
+Chrome extension or script to turn all link elements navigable with arrow keys.
 
 ## Extension available at
 https://chrome.google.com/webstore/detail/navigable-dom/iacfcojjkhhhknagpahjeibfpejfjedh
@@ -8,7 +8,8 @@ https://chrome.google.com/webstore/detail/navigable-dom/iacfcojjkhhhknagpahjeibf
 
 ### As extension
 - Install the extension
-- Add `enablend=true` get param in URL and reload the page
+- Add `enablend=true` get param in URL
+- Reload the page
 
 ### Add script in your page
 ```html
