@@ -1,6 +1,7 @@
 let allFocusableElements = [];
 let currentFocus = undefined;
 let navigableDOMInited = false;
+let loadedAsScript = false;
 
 function selectItem(newFocus, e) {
     if (currentFocus != undefined) {
@@ -99,12 +100,14 @@ function findFocusableElements() {
             allFocusableElements[allFocusableElements[i].focusDown].focusUp = i;
         }
 
-        // add 'enablend=true' in links
-        let href = allFocusableElements[i].el.getAttribute("href");
-        if (href != null) {
-            let sep = href.includes("?") ? "&" : "?";
-            href = href + sep + "enablend=true";
-            allFocusableElements[i].el.href = href;
+        if (!loadedAsScript) {
+            // add 'enablend=true' in links
+            let href = allFocusableElements[i].el.getAttribute("href");
+            if (href != null) {
+                let sep = href.includes("?") ? "&" : "?";
+                href = href + sep + "enablend=true";
+                allFocusableElements[i].el.href = href;
+            }
         }
     }
 }
@@ -146,6 +149,7 @@ function initNavigableDOM() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    loadedAsScript = true;
     initNavigableDOM();
 });
 
