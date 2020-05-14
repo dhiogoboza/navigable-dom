@@ -2,7 +2,7 @@
 Utility to turn all focusable elements navigable with arrow keys.
 
 ## Available at
-Pending chrome store publication.
+https://chrome.google.com/webstore/detail/navigable-dom/iacfcojjkhhhknagpahjeibfpejfjedh
 
 ## Usage
 - Install the extension
