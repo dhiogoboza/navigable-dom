@@ -11,6 +11,6 @@ https://chrome.google.com/webstore/detail/navigable-dom/iacfcojjkhhhknagpahjeibf
 - Add `enablend=true` get param in URL and reload the page
 
 ### Add script in your page
-```
+```html
 <script src="https://dhiogoboza.github.io/navigable-dom/js/navigable-dom.js"></script>
 ```
